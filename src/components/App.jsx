@@ -1,10 +1,13 @@
 import React, { useState, useEffect } from 'react';
+import { useDispatch } from 'react-redux';
 import ContactForm from './ContactForm';
 import Filter from './Filter';
 import ContactList from './ContactList';
 import { nanoid } from 'nanoid';
+import { addContact } from '../redux/actions';
 // импорт тестового списка контактов
 // import defaultData from './data/data';
+
 
 function App() {
   const [contacts, setContacts] = useState(() => (JSON.parse(window.localStorage.getItem('contacts')) ?? []));
@@ -15,13 +18,17 @@ function App() {
     window.localStorage.setItem('contacts', JSON.stringify(contacts));
   }, [contacts]);
 
+  const dispatch = useDispatch();
+
   const formSubmitData = (data) => {
+
     const objName = {
         id: nanoid(),
         name: data.name,
         number: data.number,
         }
-    setContacts(prev => [objName, ...prev]);
+    // setContacts(prev => [objName, ...prev]);
+    dispatch(addContact(objName));
   }
 
   const filterChange = e => {
