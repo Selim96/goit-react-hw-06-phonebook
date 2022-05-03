@@ -1,52 +1,25 @@
-import React, { useState, useEffect } from 'react';
-import { useDispatch } from 'react-redux';
+import React from 'react';
 import ContactForm from './ContactForm';
 import Filter from './Filter';
 import ContactList from './ContactList';
-import { nanoid } from 'nanoid';
-import { addContact, addFilter } from '../redux/actions';
+
 // импорт тестового списка контактов
 // import defaultData from './data/data';
 
 
 function App() {
-  const [contacts, setContacts] = useState(() => (JSON.parse(window.localStorage.getItem('contacts')) ?? []));
+  // const [contacts, setContacts] = useState(() => (JSON.parse(window.localStorage.getItem('contacts')) ?? []));
 
-  const [filter, setFilter] = useState('');
-
-  useEffect(() => {
-    window.localStorage.setItem('contacts', JSON.stringify(contacts));
-  }, [contacts]);
-
-  const dispatch = useDispatch();
-
-  const formSubmitData = (data) => {
-    const objName = {
-        id: nanoid(),
-        name: data.name,
-        number: data.number,
-        }
-    // setContacts(prev => [objName, ...prev]);
-    dispatch(addContact(objName));
-  }
-
-  const filterChange = e => {
-    // setFilter(e.currentTarget.value);
-    dispatch(addFilter(e.currentTarget.value));
-  }
-
-  const toDoFilter = () => {
-    return contacts.filter(contact => contact.name.toLowerCase().includes(filter.toLowerCase()));
-  }
-
-  const checkFunction = (name) => (contacts.some(v => v.name.toLowerCase() === name.toLowerCase())); 
-
+  // useEffect(() => {
+  //   window.localStorage.setItem('contacts', JSON.stringify(contacts));
+  // }, [contacts]);
+  
   return <div>
         <h1>Phonebook</h1>
-        <ContactForm onSubmit={formSubmitData} check={checkFunction} />
+        <ContactForm />
         <h2>Contacts</h2>
-        <Filter value={filter} onChange={filterChange}/>
-        <ContactList contacts={toDoFilter()} />
+        <Filter />
+        <ContactList />
     </div>
 }
 

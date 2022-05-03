@@ -1,10 +1,8 @@
 import { createStore, combineReducers } from "redux";
 import { composeWithDevTools } from 'redux-devtools-extension';
 
-const localStoreList = () => (JSON.parse(window.localStorage.getItem('contacts')) ?? []);
-
 const initialState = {
-    items: localStoreList(),
+    items: JSON.parse(window.localStorage.getItem('contacts')) ?? [],
     filter: ''
 }
 
@@ -22,8 +20,8 @@ const reducer = (state = initialState, { type, payload }) => {
         
         default:
             return state;
-    }
+    };
 };
-const rootReducer = combineReducers({contacts: reducer})
+const rootReducer = combineReducers({ contacts: reducer });
 export const store = createStore(rootReducer, composeWithDevTools());
 

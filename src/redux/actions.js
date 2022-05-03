@@ -12,4 +12,4 @@ export const addFilter = value => ({
 export const deleteItem = id => ({
     type: 'deleteItem',
     payload: id,
-})
+});

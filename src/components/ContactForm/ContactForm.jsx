@@ -1,18 +1,21 @@
 import { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import s from './ContactForm.module.css';
-import PropTypes from "prop-types";
+import { nanoid } from 'nanoid';
+import { addContact } from '../../redux/actions';
 
-
-function ContactForm({onSubmit, check}) {
+function ContactForm() {
   const [name, setName] = useState('');
   const [number, setNumber] = useState('');
   const formOutput = {
+    id: nanoid(),
     name,
     number,
   };
+  const dispatch = useDispatch();
+  const contactsStore = useSelector(state => state.contacts.items);
 
   const handlChange = e => {
-
     switch (e.currentTarget.name) {
       case 'name':
         setName(e.currentTarget.value);
@@ -24,15 +27,18 @@ function ContactForm({onSubmit, check}) {
     
       default:
         break;
-    }}
+    }
+  };
+
+  const checkFunction = () => (contactsStore.some(v => v.name.toLowerCase() === name.toLowerCase())); 
     
-    const handlSubmit = e => {
+  const handlSubmit = e => {
     e.preventDefault();
-      if (check(name)) {
+      if (checkFunction()) {
         alert(`${name} is already in contacts!`);
         return;
     };
-      onSubmit(formOutput);
+      dispatch(addContact(formOutput));
       setName('');
       setNumber('');    
     }
@@ -70,10 +76,10 @@ function ContactForm({onSubmit, check}) {
   </form>);
 }
 
-ContactForm.propTypes = {
-    onSubmit: PropTypes.func,
-    check: PropTypes.func,
-  }
+// ContactForm.propTypes = {
+//     onSubmit: PropTypes.func,
+//     check: PropTypes.func,
+//   }
 
 // ================================================
 // class OldContactForm extends Component {
