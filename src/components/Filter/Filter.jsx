@@ -1,18 +1,21 @@
+import { useSelector, useDispatch } from 'react-redux';
 import s from './Filter.module.css';
 import PropTypes from 'prop-types';
 
-function Filter({value, onChange}) {
+function Filter({ onChange }) {
+  const filterValue = useSelector(state => state.contacts.filter);
+  const dis
   return (
     <div className={s.filter}>
       <label className={s.labelFilter}>
           Find contacts by name
           <input
             type="text"
-          name="filter"
-          className={s.input}
+            name="filter"
+            className={s.input}
             pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
-          value={value}
-          placeholder='Enter name'
+            value={filterValue}
+            placeholder='Enter name'
             onChange={onChange}
           />
         </label>

@@ -4,7 +4,7 @@ import ContactForm from './ContactForm';
 import Filter from './Filter';
 import ContactList from './ContactList';
 import { nanoid } from 'nanoid';
-import { addContact } from '../redux/actions';
+import { addContact, addFilter } from '../redux/actions';
 // импорт тестового списка контактов
 // import defaultData from './data/data';
 
@@ -21,7 +21,6 @@ function App() {
   const dispatch = useDispatch();
 
   const formSubmitData = (data) => {
-
     const objName = {
         id: nanoid(),
         name: data.name,
@@ -32,7 +31,8 @@ function App() {
   }
 
   const filterChange = e => {
-    setFilter(e.currentTarget.value);
+    // setFilter(e.currentTarget.value);
+    dispatch(addFilter(e.currentTarget.value));
   }
 
   const toDoFilter = () => {
@@ -41,16 +41,12 @@ function App() {
 
   const checkFunction = (name) => (contacts.some(v => v.name.toLowerCase() === name.toLowerCase())); 
 
-  const toDeleteContact = (id) => {
-    setContacts(prev => (prev.filter(e => e.id !== id)))
-  };
-  
   return <div>
         <h1>Phonebook</h1>
         <ContactForm onSubmit={formSubmitData} check={checkFunction} />
         <h2>Contacts</h2>
         <Filter value={filter} onChange={filterChange}/>
-        <ContactList contacts={toDoFilter()} toDelete={toDeleteContact}/>
+        <ContactList contacts={toDoFilter()} />
     </div>
 }
 

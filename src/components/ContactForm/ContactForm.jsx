@@ -17,6 +17,7 @@ function ContactForm({onSubmit, check}) {
       case 'name':
         setName(e.currentTarget.value);
         break;
+      
       case 'number':
         setNumber(e.currentTarget.value);
         break;
