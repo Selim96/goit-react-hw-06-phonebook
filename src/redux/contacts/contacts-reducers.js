@@ -1,25 +1,15 @@
 import { combineReducers } from "redux";
+import { createReducer } from "@reduxjs/toolkit";
+import * as action from '../contacts/contacts-actions';
 
-const itemsReducer = (state = JSON.parse(window.localStorage.getItem('contacts')) ?? [], { type, payload }) => {
-    switch (type) {
-        case 'add':
-            return [...state, payload];
-        
-        case 'deleteItem':
-            const filteredList = list => (list.filter(e => e.id !== payload));
-            return filteredList(state);
-        
-        default:
-            return state;
-    };
-};
+const itemsReducer = createReducer([], {
+    [action.addContact]: (state, { payload }) => ([...state, payload]),
+    [action.deleteItem]: (state, { payload }) => (state.filter(e => e.id !== payload))
+});
 
-const filterReducer = (state = '', { type, payload }) => {
-    if (type === 'filter') {
-        return payload;
-    }
-    return state;
-};
+const filterReducer = createReducer('', {
+    [action.addFilter]: (_, { payload }) => payload
+});
 
 export default combineReducers({
     items: itemsReducer,

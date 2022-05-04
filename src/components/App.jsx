@@ -3,16 +3,7 @@ import ContactForm from './ContactForm';
 import Filter from './Filter';
 import ContactList from './ContactList';
 
-// импорт тестового списка контактов
-// import defaultData from './data/data';
-
-
 function App() {
-  // const [contacts, setContacts] = useState(() => (JSON.parse(window.localStorage.getItem('contacts')) ?? []));
-
-  // useEffect(() => {
-  //   window.localStorage.setItem('contacts', JSON.stringify(contacts));
-  // }, [contacts]);
   
   return <div>
         <h1>Phonebook</h1>
