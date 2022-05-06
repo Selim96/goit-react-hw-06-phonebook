@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { getContacts} from 'redux/contacts/contacts-selectors';
 import s from './ContactForm.module.css';
 import { nanoid } from 'nanoid';
 import { addContact } from '../../redux/contacts/contacts-actions';
@@ -13,7 +14,7 @@ function ContactForm() {
     number,
   };
   const dispatch = useDispatch();
-  const contactsStore = useSelector(state => state.contacts.items);
+  const contactsStore = useSelector(getContacts);
 
   const handlChange = e => {
     switch (e.currentTarget.name) {
@@ -75,6 +76,7 @@ function ContactForm() {
     <button type='submit' className={s.button}>Add contact</button>
   </form>);
 }
+export default ContactForm;
 
 // ContactForm.propTypes = {
 //     onSubmit: PropTypes.func,
@@ -145,5 +147,3 @@ function ContactForm() {
 //         );
 //     }
 // }
-
-export default ContactForm;

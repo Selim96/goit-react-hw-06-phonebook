@@ -5,14 +5,14 @@ import { deleteItem } from '../../redux/contacts/contacts-actions';
 
 function ContactItem({contacts}) {
     const dispatch = useDispatch();
-    const deleteBtn = (contact) => {dispatch(deleteItem(contact.id))
+    const deleteBtn = (id) => {dispatch(deleteItem(id))
 };
 
     return <>
         {contacts.map(contact => {
                 return <>
                     <li key={contact.id} className={s.item}><p className={s.itemNumber}>{contact.name}: {contact.number}</p>
-                    <button className={s.button} onClick={()=> deleteBtn(contact)} >Delete</button>
+                    <button className={s.button} onClick={()=> deleteBtn(contact.id)} >Delete</button>
                     </li>
                 </>
             })}

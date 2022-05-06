@@ -1,9 +1,10 @@
 import { useSelector, useDispatch } from 'react-redux';
+import { getFilterValue} from 'redux/contacts/contacts-selectors';
 import s from './Filter.module.css';
 import { addFilter } from 'redux/contacts/contacts-actions';
 
 function Filter() {
-  const filterValue = useSelector(state => state.contacts.filter);
+  const filterValue = useSelector(getFilterValue);
   const dispatch = useDispatch();
   const filterChange = e => {
     dispatch(addFilter(e.currentTarget.value));
